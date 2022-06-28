@@ -1,24 +1,27 @@
 import java.util.Scanner;
 import java.io.File;
+import java.io.IOException;
 import java.util.NoSuchElementException;
-import java.io.FileNotFoundException;
 
 public class creditlnquiry {
     private menuOption accountType;
     private Scanner input;
     private menuOption choices[] = {menuOption.zero_balance, menuOption.credito_balance, menuOption.debito_balance, menuOption.end};
 
-    private void readRecords() {
+    private void readRecords() throws IOException{
         AccountRecord record = new AccountRecord();
         try {
-            input = new Scanner(new File("..\\cliente.txt"));
+            File file = new File("cliente.txt");
+            file.createNewFile();
+            input = new Scanner(file);
+            
             while (input.hasNext()) {
                 record.setAccount(input.nextInt());
-                record.setfirstName(input.next());
-                record.setlastName(input.next());
-                record.setbalance(input.nextDouble());
-                if(shouldDisplay(record.getbalance())) {
-                    System.out.printf(" %-10d%-125%-12s%10.2f\n", record.getAccount(), record.getfirstName(), record.getlastName(), record.getbalance());
+                record.setFirstName(input.next());
+                record.setLastName(input.next());
+                record.setBalance(input.nextDouble());
+                if(shouldDisplay(record.getBalance())) {
+                    System.out.printf(" %-10d%-125%-12s%10.2f\n", record.getAccount(), record.getFirstName(), record.getLastName(), record.getBalance());
                 }
             }
         } catch (NoSuchElementException elemException) {
@@ -60,10 +63,11 @@ public class creditlnquiry {
             System.out.println("Entrada inválida");
             System.exit(1);
         }
+        textIn.close();
         return choices[request - 1];
     }
 
-    public void processRequest() {
+    public void processRequest() throws IOException {
         accountType = getRequest();
         while (accountType != menuOption.end) {
             switch (accountType) {
