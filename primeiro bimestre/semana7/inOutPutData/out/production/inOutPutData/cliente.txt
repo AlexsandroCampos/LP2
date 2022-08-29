@@ -1,0 +1,6 @@
+500 Joao Carlos 25.0
+107 Francisco Garcia 0.0
+10 Pedro Alcantara -15.0
+250 Alicia Campos 30.0
+52 Mariana Alvares -20.0
+33 Joana D'Arc 0.0
